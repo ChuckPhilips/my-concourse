@@ -60,7 +60,7 @@ jobs:
 
       - name: Extract
         run: |
-          echo $CHROME_BIN
+          env
             
   download-artifact:
     needs: [deploy-cube-sandbox]
