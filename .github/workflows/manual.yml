@@ -27,7 +27,7 @@ jobs:
             echo ${{ github.ref }}
             echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
             cd archive
-            ARCHIVE_NAME=${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip
+            ARCHIVE_NAME=${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y')-${{ github.actor}}-${{ github.triggering_actor }}.zip
             zip -r  $ARCHIVE_NAME .
             mv $ARCHIVE_NAME ..
             echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
