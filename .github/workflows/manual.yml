@@ -1,14 +1,11 @@
 name: deploy-cube-sandbox-manual
-run-name:  by ${{ github.actor }}
+run-name: "Ran by ${{ github.actor }}/${{ github.triggering_actor }}/${{ inputs.archive }}"
 on:
   workflow_dispatch:
     inputs:
       archive:
         description: 'Which version of archive to deploy'
         required: true
-
-env:
-  environment: cube-sandbox
 
 jobs:
     deploy-cube-sandbox:
