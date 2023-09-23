@@ -49,23 +49,23 @@ jobs:
       needs: [deploy-cube-sandbox]
       runs-on: ubuntu-latest
       steps:
-        - name: Download artifacts
-          uses: actions/download-artifact@v3
+        # - name: Download artifacts
+        #   uses: actions/download-artifact@v3
 
         - name: Download artifacts
           uses: actions/download-artifact@v3
           with:
             name: directory
 
-        - name: Download artifacts
-          uses: actions/download-artifact@v3
-          with:
-            name: file
+        # - name: Download artifacts
+        #   uses: actions/download-artifact@v3
+        #   with:
+        #     name: file
 
-        - name: Download artifacts
-          uses: actions/download-artifact@v3
-          with:
-            name: zip
+        # - name: Download artifacts
+        #   uses: actions/download-artifact@v3
+        #   with:
+        #     name: zip
 
         - name: Extract
           run: |
