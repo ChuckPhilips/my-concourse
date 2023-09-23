@@ -48,7 +48,7 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: zip
-            path: archive.zip
+            path: ${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip
             retention-days: 5
             
     download-artifact:
