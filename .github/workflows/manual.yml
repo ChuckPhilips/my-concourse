@@ -13,12 +13,12 @@ env:
 jobs:
     deploy-cube-sandbox:
       runs-on: ubuntu-latest
-      environment: cube-sandbox
+      environment: ${{ vars.ENVIRONMENT }}
       steps:
         - name: Download repository
           uses: actions/checkout@v4
 
         - name: Download archive
           run: |
-            echo "Downloading archive ${{ inputs.archive}} from environment ${{ env.environment }}"
+            echo "Downloading archive ${{ inputs.archive}} from environment ${{ vars.ENVIRONMENT }}"
 
