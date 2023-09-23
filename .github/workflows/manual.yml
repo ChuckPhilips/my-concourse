@@ -21,5 +21,6 @@ jobs:
 
         - name: Show variables
           run: |
+            echo ${{ github.ref }}
             echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
 
