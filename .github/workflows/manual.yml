@@ -20,20 +20,32 @@ jobs:
             echo ${{ github.ref }}
             echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
 
-        - name: 'Upload Artifact'
+        - name: 'Upload directory'
           uses: actions/upload-artifact@v3
           with:
-            name: my-artifact
+            name: directory
             path: archive
+            retention-days: 5
+
+        - name: 'Upload file'
+          uses: actions/upload-artifact@v3
+          with:
+            name: file
+            path: archive.txt
             retention-days: 5
             
     download-artifact:
       runs-on: ubuntu-latest
       steps:
-        - name: Download a single artifact
+        - name: Download directory
           uses: actions/download-artifact@v3
           with:
-            name: my-artifact
+            name: directory
+
+        - name: Download file
+          uses: actions/download-artifact@v3
+          with:
+            name: file
         
         - name: Extract
           run: |
