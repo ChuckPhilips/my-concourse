@@ -22,3 +22,7 @@ jobs:
           run: |
             echo "Downloading archive ${{ inputs.archive}} from environment ${{ vars.ENVIRONMENT }}"
 
+        - name: Show variables
+          run: |
+            echo "Running by the user: ${{ github.actor }}"
+
