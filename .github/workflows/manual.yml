@@ -11,6 +11,7 @@ jobs:
     deploy-cube-sandbox:
       runs-on: ubuntu-latest
       environment: ${{ vars.ENVIRONMENT }}
+      if: github.ref == 'refs/heads/main'
       steps:
         - name: Download repository
           uses: actions/checkout@v4
