@@ -26,8 +26,9 @@ jobs:
             echo ${{ github.ref }}
             echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
             cd archive
-            zip -r ${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip .
-            mv ${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip ..
+            export ARCHIVE_NAME=${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip
+            zip -r  $ARCHIVE_NAME .
+            mv $ARCHIVE_NAME ..
 
 
         - name: 'Upload directory'
@@ -48,7 +49,7 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: zip
-            path: ${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip
+            path: ${{ env.ARCHIVE_NAME }}
             retention-days: 5
             
     download-artifact:
