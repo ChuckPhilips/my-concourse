@@ -1,0 +1,24 @@
+name: deploy-cube-sandbox-manual
+run-name:  by ${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+      archive:
+        description: 'Which version of archive to deploy'
+        required: true
+
+env:
+  environment: cube-sandbox
+
+jobs:
+    deploy-cube-sandbox:
+    runs-on: ubuntu-latest
+    environment: ${{ env.environment }}
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Download archive
+        run: |
+          echo "Downloading archive ${{ inputs.archive}} from environment ${{ env.environment }}"
+
