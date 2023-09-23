@@ -43,5 +43,7 @@ jobs:
         - name: Extract
           run: |
             ls -lah
+            ls -alh directory
+            ls -lah file
 
 
