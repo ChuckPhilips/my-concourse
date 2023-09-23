@@ -35,7 +35,7 @@ jobs:
           zip -r  $ARCHIVE_NAME .
           mv $ARCHIVE_NAME ..
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
-          echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
+          echo "CHROME_BIN=$ARCHIVE_NAME" >> $GITHUB_ENV
 
       - name: 'Upload directory'
         uses: actions/upload-artifact@v3
@@ -60,8 +60,7 @@ jobs:
 
       - name: Extract
         run: |
-          ls -lah
-          echo "${{env.archive-name}}"
+          echo $CHROME_BIN
             
   download-artifact:
     needs: [deploy-cube-sandbox]
@@ -86,6 +85,5 @@ jobs:
       - name: Extract
         run: |
           ls -lah
-          echo "${archive-name}"
 
 
