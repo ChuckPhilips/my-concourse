@@ -81,6 +81,6 @@ jobs:
       - name: Extract
         run: |
           ls -lah
-          echo $archive-name
+          echo "${archive-name}"
 
 
