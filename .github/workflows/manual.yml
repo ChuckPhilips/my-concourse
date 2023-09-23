@@ -13,7 +13,7 @@ env:
 jobs:
     deploy-cube-sandbox:
       runs-on: ubuntu-latest
-      environment: ${{ env.environment }}
+      environment: cube-sandbox
       steps:
         - name: Download repository
           uses: actions/checkout@v4
