@@ -40,7 +40,14 @@ jobs:
       steps:
         - name: Download artifacts
           uses: actions/download-artifact@v3
-        
+          with:
+            name: directory
+
+        - name: Download artifacts
+          uses: actions/download-artifact@v3
+          with:
+            name: file
+
         - name: Extract
           run: |
             ls -lah
