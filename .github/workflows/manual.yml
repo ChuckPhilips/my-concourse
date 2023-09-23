@@ -21,5 +21,5 @@ jobs:
 
         - name: Show variables
           run: |
-            echo "Running by the user: ${{ github.actor }} --- if rerun user is ${{ github.triggering_actor }}"
+            echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +\"%A, %b %d, %Y %I:%M %p\")"
 
