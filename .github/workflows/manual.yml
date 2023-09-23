@@ -57,6 +57,11 @@ jobs:
           name: ${{ env.archive_artifact_name }}
           path: ${{ steps.show-variables.outputs.archive-name }}
           retention-days: 5
+
+      - name: Extract
+        run: |
+          ls -lah
+          echo "${{env.archive-name}}"
             
   download-artifact:
     needs: [deploy-cube-sandbox]
