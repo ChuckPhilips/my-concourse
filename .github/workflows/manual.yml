@@ -24,5 +24,5 @@ jobs:
 
         - name: Show variables
           run: |
-            echo "Running by the user: ${{ github.actor }}"
+            echo "Running by the user: ${{ github.actor }} --- if rerun user is ${{ github.triggering_actor }}"
 
