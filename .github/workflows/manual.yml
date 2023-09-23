@@ -1,5 +1,5 @@
 name: deploy-cube-sandbox-manual
-run-name: "Triggered by ${{ github.actor }}/${{ github.triggering_actor }} deploying version: ${{ inputs.archive }} on ${{ date +'%Y-%m-%d %T'  }}"
+run-name: "Triggered by ${{ github.actor }}/${{ github.triggering_actor }} deploying version: ${{ inputs.archive }}"
 on:
   workflow_dispatch:
     inputs:
