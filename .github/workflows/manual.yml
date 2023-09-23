@@ -35,6 +35,7 @@ jobs:
             retention-days: 5
             
     download-artifact:
+      needs: [deploy-cube-sandbox]
       runs-on: ubuntu-latest
       steps:
         - name: Download artifacts
