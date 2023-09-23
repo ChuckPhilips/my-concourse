@@ -12,15 +12,31 @@ jobs:
       runs-on: ubuntu-latest
       environment: ${{ vars.ENVIRONMENT }}
       steps:
-        # - name: Download repository
-        #   uses: actions/checkout@v4
-
-        - name: Download archive
-          run: |
-            echo "Downloading archive ${{ inputs.archive}} from environment ${{ vars.ENVIRONMENT }}"
+        - name: Download repository
+          uses: actions/checkout@v4
 
         - name: Show variables
           run: |
             echo ${{ github.ref }}
             echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
+
+        - name: 'Upload Artifact'
+          uses: actions/upload-artifact@v3
+          with:
+            name: my-artifact
+            path: archive
+            retention-days: 5
+            
+    download-artifact:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download a single artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: my-artifact
+        
+        - name: Extract
+          run: |
+            ls -lah
+
 
