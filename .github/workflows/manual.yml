@@ -37,15 +37,8 @@ jobs:
     download-artifact:
       runs-on: ubuntu-latest
       steps:
-        - name: Download directory
+        - name: Download artifacts
           uses: actions/download-artifact@v3
-          with:
-            name: directory
-
-        - name: Download file
-          uses: actions/download-artifact@v3
-          with:
-            name: file
         
         - name: Extract
           run: |
