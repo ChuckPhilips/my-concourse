@@ -8,76 +8,79 @@ on:
         required: true
 
 jobs:
-    deploy-cube-sandbox:
-      runs-on: ubuntu-latest
-      environment: ${{ vars.ENVIRONMENT }}
-      steps:
-        - name: Download repository
-          uses: actions/checkout@v4
+  deploy-cube-sandbox:
+    runs-on: ubuntu-latest
+    environment: ${{ vars.ENVIRONMENT }}
+    env:
+      archive_artifact_name: zip
+    outputs:
+      archive-artifact-name: ${{ env.archive_artifact_name }}
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
 
-        - name: Create short sha
-          uses: benjlevesque/short-sha@v2.2
-          id: short-sha
-          with:
-            length: 6
+      - name: Create short sha
+        uses: benjlevesque/short-sha@v2.2
+        id: short-sha
+        with:
+          length: 6
 
-        - name: Show variables
-          id: show-variables
-          run: |
-            echo ${{ github.ref }}
-            echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
-            cd archive
-            ARCHIVE_NAME=${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y')-${{ github.actor}}-${{ github.triggering_actor }}.zip
-            zip -r  $ARCHIVE_NAME .
-            mv $ARCHIVE_NAME ..
-            echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+      - name: Show variables
+        id: show-variables
+        run: |
+          echo ${{ github.ref }}
+          echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
+          cd archive
+          ARCHIVE_NAME=${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y')-${{ github.actor}}-${{ github.triggering_actor }}.zip
+          zip -r  $ARCHIVE_NAME .
+          mv $ARCHIVE_NAME ..
+          echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
 
+      - name: 'Upload directory'
+        uses: actions/upload-artifact@v3
+        with:
+          name: directory
+          path: archive
+          retention-days: 5
 
-        - name: 'Upload directory'
-          uses: actions/upload-artifact@v3
-          with:
-            name: directory
-            path: archive
-            retention-days: 5
+      - name: 'Upload file'
+        uses: actions/upload-artifact@v3
+        with:
+          name: file
+          path: archive.txt
+          retention-days: 5
 
-        - name: 'Upload file'
-          uses: actions/upload-artifact@v3
-          with:
-            name: file
-            path: archive.txt
-            retention-days: 5
-
-        - name: 'Upload zip'
-          uses: actions/upload-artifact@v3
-          with:
-            name: zip
-            path: ${{ steps.show-variables.outputs.archive-name }}
-            retention-days: 5
+      - name: 'Upload zip'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.archive_artifact_name }}
+          path: ${{ steps.show-variables.outputs.archive-name }}
+          retention-days: 5
             
-    download-artifact:
-      needs: [deploy-cube-sandbox]
-      runs-on: ubuntu-latest
-      steps:
-        # - name: Download artifacts
-        #   uses: actions/download-artifact@v3
+  download-artifact:
+    needs: [deploy-cube-sandbox]
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v3
 
-        - name: Download artifacts
-          uses: actions/download-artifact@v3
-          with:
-            name: zip
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.deploy-cube-sandbox.outputs.archive-artifact-name }}
 
-        # - name: Download artifacts
-        #   uses: actions/download-artifact@v3
-        #   with:
-        #     name: file
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: file
 
-        # - name: Download artifacts
-        #   uses: actions/download-artifact@v3
-        #   with:
-        #     name: zip
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: zip
 
-        - name: Extract
-          run: |
-            ls -lah
+      - name: Extract
+        run: |
+          ls -lah
 
 
