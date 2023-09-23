@@ -15,13 +15,19 @@ jobs:
         - name: Download repository
           uses: actions/checkout@v4
 
+        - name: Create short sha
+          uses: benjlevesque/short-sha@v2.2
+          id: short-sha
+          with:
+            length: 6
+
         - name: Show variables
           run: |
             echo ${{ github.ref }}
             echo "Running by the user: ${{ github.actor }}/${{ github.triggering_actor }} with version: ${{ inputs.archive }} on date: $(date +'%A, %b %d, %Y %I:%M %p')"
             cd archive
-            zip -r archive.zip .
-            mv archive.zip ..
+            zip -r ${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip .
+            mv ${{ steps.short-sha.outputs.sha }}-$(date +'%d-%b-%Y').zip ..
 
 
         - name: 'Upload directory'
