@@ -71,5 +71,6 @@ jobs:
         - name: Extract
           run: |
             ls -lah
+            ls -lah directory
 
 
